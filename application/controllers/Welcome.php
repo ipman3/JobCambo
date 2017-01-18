@@ -18,9 +18,23 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+
+	function __cinstruct(){
+		parent::__construct();
+		$this->load->library('migration');
+		if ($this->migration->current() === FALSE)
+		{
+			show_error($this->migration->error_string());
+		}
+	}
+
+
+
 	public function index()
 	{
-		$query = $this->db->get('tbl_jobs');
+
+		$query = $this->db->get('jobs');
 		$data['jobs'] = $query->result();
 		$this->load->view('welcome_message' , $data);
 	}
